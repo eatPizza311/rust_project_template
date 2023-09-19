@@ -13,7 +13,7 @@ cat > ~/.zshrc <<EOF
 # =====================
 
 # Set the default shell to Zsh (if not already set)
-[ -n "$ZSH_VERSION" ] || exec zsh
+[ -n "\$ZSH_VERSION" ] || exec zsh
 
 # =====================
 # Z-plug Plugin Manager
@@ -46,16 +46,13 @@ zplug load
 # =====================
 
 # Keybindings for history substring search
-bindkey "$terminfo[kcuu1]" history-substring-search-up
-bindkey "$terminfo[kcud1]" history-substring-search-down
+bindkey "\$terminfo[kcuu1]" history-substring-search-up
+bindkey "\$terminfo[kcud1]" history-substring-search-down
 
 # History settings
 SAVEHIST=1000
 export HISTFILE=~/.zsh_history
 setopt share_history
-
-# Case-insensitive tab completion
-zstyle ':completion:*' matcher-list '' 'm:{a-zA-Z}={A-Za-z}' 'r:|[._-]=* r:|=*' 'l:|=* r:|=*'
 
 # =====================
 # Custom Aliases and Functions
@@ -75,11 +72,11 @@ alias mkdir='mkdir -p'
 # =====================
 
 # Load Powerlevel10k instant prompt
-if [[ -r "${XDG_CACHE_HOME:-$HOME/.cache}/p10k-instant-prompt-${(%):-%n}.zsh" ]]; then
-  source "${XDG_CACHE_HOME:-$HOME/.cache}/p10k-instant-prompt-${(%):-%n}.zsh"
+if [[ -r "\${XDG_CACHE_HOME:-\$HOME/.cache}/p10k-instant-prompt-\${(%):-%n}.zsh" ]]; then
+  source "\${XDG_CACHE_HOME:-\$HOME/.cache}/p10k-instant-prompt-\${(%):-%n}.zsh"
 fi
 
-# To customize the prompt, run `p10k configure` or edit ~/.p10k.zsh
+# To customize the prompt, run \`p10k configure\` or edit ~/.p10k.zsh
 [[ ! -f ~/.p10k.zsh ]] || source ~/.p10k.zsh
 
 # =====================
@@ -93,4 +90,5 @@ fi
 
 EOF
 
+# Inform the user
 echo "Zsh configuration and dependencies installed. Please restart your shell."
