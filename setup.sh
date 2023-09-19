@@ -8,16 +8,28 @@ fi
 
 # Create or overwrite the .zshrc file.
 cat > ~/.zshrc <<EOF
-# >>> Z-plug >>>
+# =====================
+# General Configuration
+# =====================
+
+# Set the default shell to Zsh (if not already set)
+[ -n "$ZSH_VERSION" ] || exec zsh
+
+# =====================
+# Z-plug Plugin Manager
+# =====================
+
+# Source Z-plug
 source ~/.zplug/init.zsh
 
+# Plugins
 zplug 'romkatv/powerlevel10k', as:theme, depth:1
 zplug 'zsh-users/zsh-autosuggestions'
 zplug 'zsh-users/zsh-history-substring-search'
 zplug 'marlonrichert/zsh-autocomplete'
 zplug 'hlissner/zsh-autopair'
 
-# plugins
+# Check and install plugins if necessary
 if ! zplug check --verbose; then
     printf "Install? [y/N]: "
     if read -q; then
@@ -26,24 +38,29 @@ if ! zplug check --verbose; then
     fi
 fi
 
+# Load plugins
 zplug load
-# <<< Z plug <<<
 
-# >>> Other setting >>>
-bindkey "\$terminfo[kcuu1]" history-substring-search-up
-bindkey "\$terminfo[kcud1]" history-substring-search-down
+# =====================
+# Keybindings and History
+# =====================
+
+# Keybindings for history substring search
+bindkey "$terminfo[kcuu1]" history-substring-search-up
+bindkey "$terminfo[kcud1]" history-substring-search-down
+
+# History settings
 SAVEHIST=1000
 export HISTFILE=~/.zsh_history
 setopt share_history
-# case sensitive
+
+# Case-insensitive tab completion
 zstyle ':completion:*' matcher-list '' 'm:{a-zA-Z}={A-Za-z}' 'r:|[._-]=* r:|=*' 'l:|=* r:|=*'
 
-# zsh-autocomplete configure
-# Down arrow:
-bindkey '\e[B' down-line-or-select
-bindkey '\eOB' down-line-or-select
-# down-line-or-select:  Open completion menu.
-# down-line-or-history: Cycle to next history line.
+# =====================
+# Custom Aliases and Functions
+# =====================
+
 alias rm='rm -r'
 alias cp='cp -r'
 alias ls='ls -hlF --color=auto'
@@ -53,18 +70,27 @@ alias grep='grep --color=always'
 alias grepFind='grep --exclude-dir=node_modules -nr . -e'
 alias mkdir='mkdir -p'
 
-# <<< Other setting <<<
+# =====================
+# Powerlevel10k Customization
+# =====================
 
-# >>> Powerlevel10k >>>
-# Enable Powerlevel10k instant prompt. Should stay close to the top of ~/.zshrc.
-# Initialization code that may require console input (password prompts, [y/n]
-# confirmations, etc.) must go above this block; everything else may go below.
-if [[ -r "\${XDG_CACHE_HOME:-\$HOME/.cache}/p10k-instant-prompt-\${(%):-%n}.zsh" ]]; then
-  source "\${XDG_CACHE_HOME:-\$HOME/.cache}/p10k-instant-prompt-\${(%):-%n}.zsh"
+# Load Powerlevel10k instant prompt
+if [[ -r "${XDG_CACHE_HOME:-$HOME/.cache}/p10k-instant-prompt-${(%):-%n}.zsh" ]]; then
+  source "${XDG_CACHE_HOME:-$HOME/.cache}/p10k-instant-prompt-${(%):-%n}.zsh"
 fi
-# To customize prompt, run \`p10k configure\` or edit ~/.p10k.zsh.
+
+# To customize the prompt, run `p10k configure` or edit ~/.p10k.zsh
 [[ ! -f ~/.p10k.zsh ]] || source ~/.p10k.zsh
-# <<< Powerlevel10k <<<
+
+# =====================
+# Additional Customizations
+# =====================
+
+# Add your additional customizations below this section
+
+# Example: Export environment variables
+# export MY_VARIABLE="example_value"
+
 EOF
 
 echo "Zsh configuration and dependencies installed. Please restart your shell."
