@@ -4,9 +4,12 @@
         "context": "."
     },
     "features": {
+		// see https://github.com/devcontainers/features/tree/main/src/common-utils for more information
         "ghcr.io/devcontainers/features/common-utils:2": {
             "installZsh": "true",
 			"configureZshAsDefaultShell": "true",
+			"installOhMyZsh": "false",
+			"installOhMyZshConfig": "false",
             "username": "vscode",
             "userUid": "1000",
             "userGid": "1000",
