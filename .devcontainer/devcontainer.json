@@ -17,6 +17,18 @@
             "ppa": "false"
         }
     },
+	
+	// Configure tool-specific properties.
+	"customizations": {
+		// Configure properties specific to VS Code.
+		"vscode": {
+			// Add the IDs of extensions you want to install when the container is created.
+			"extensions": [
+				"usernamehw.errorlens"
+			]
+		}
+	},
+
 
 	// Use 'forwardPorts' to make a list of ports inside the container available locally.
 	// "forwardPorts": [],
