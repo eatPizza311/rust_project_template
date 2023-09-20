@@ -27,13 +27,14 @@ lint:
 
 test:
 	@echo "$(GREEN)$(BOLD)    Running Rust tests...$(RESET_COLOR)"
-	@TEST_OUTPUT=$$(script -q -c "cargo test --quiet 2>/dev/null" | grep -E '^test result'); \
-		echo "    $$TEST_OUTPUT"
+	@cargo test --quiet 2>&1 | \
+		grep -E '^test result' | \
+		sed 's/^/    /' | \
+		sed -E 's/(ok)/\x1b[32m\1\x1b[0m/g; s/(FAILED)/\x1b[31m\1\x1b[0m/g'
 
 run:
 	@echo "$(RED)$(BOLD)Running the Rust program...$(RESET_COLOR)"
-	@RUN_OUTPUT=$$(cargo run --quiet); \
-	echo "$$RUN_OUTPUT"
+	@cargo run --quiet
 
 release:
 	@echo "$(BOLD)Building in release mode...$(RESET_COLOR)"
