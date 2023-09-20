@@ -8,9 +8,6 @@ GREEN = \033[92m
 YELLOW = \033[93m
 BLUE = \033[94m
 
-# Define a variable to capture command output
-CMD_OUTPUT = 
-
 version:
 	@echo "$(BOLD)Rust CLI Versions:$(RESET_COLOR)"
 	@echo "------------------"
@@ -22,11 +19,11 @@ version:
 
 format:
 	@echo "$(BLUE)$(BOLD)Formatting code...$(RESET_COLOR)"
-	$(eval CMD_OUTPUT += $(shell cargo fmt --quiet))
+	$(shell cargo fmt --quiet)
 
 lint:
 	@echo "$(YELLOW)$(BOLD)  Running linter...$(RESET_COLOR)"
-	$(eval CMD_OUTPUT += $(shell cargo clippy --quiet))
+	$(shell cargo clippy --quiet)
 
 test:
 	@echo "$(GREEN)$(BOLD)    Running Rust tests...$(RESET_COLOR)"
@@ -40,7 +37,7 @@ run:
 
 release:
 	@echo "$(BOLD)Building in release mode...$(RESET_COLOR)"
-	$(eval CMD_OUTPUT += $(shell cargo build --release))
+	$(shell cargo build --release)
 
 all: format lint test run
 	@echo "$(RESET_COLOR)$(BOLD)All tasks completed.$(RESET_COLOR)"
