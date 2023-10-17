@@ -24,8 +24,8 @@ if ! which nvim > /dev/null; then
     # Optional: exposing nvim globally.
     sudo mv squashfs-root /
     sudo ln -s /squashfs-root/AppRun /usr/bin/nvim
-    # Clone the AstroNvim repository.
-    git clone --depth 1 https://github.com/AstroNvim/AstroNvim ~/.config/nvim
+    # Clone the NvChad repository.
+    git clone https://github.com/NvChad/NvChad ~/.config/nvim --depth 1
 fi
 
 # Create or overwrite the .zshrc file.
