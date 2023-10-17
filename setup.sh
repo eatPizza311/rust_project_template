@@ -1,20 +1,35 @@
 #!/bin/bash
+# Check if Zsh is installed, if not, install it.
+if ! which zsh > /dev/null; then
+    echo "Installing Zsh..."
+    sudo apt install zsh
+fi
 
 # Check if zplug is installed, if not, install it.
 if [ ! -d ~/.zplug ]; then
     echo "Installing zplug..."
-    git clone https://github.com/zplug/zplug ~/.zplug
+    curl -sL --proto-redir -all,https https://raw.githubusercontent.com/zplug/installer/master/installer.zsh | zsh
+fi
+
+# Set Zsh as the default shell
+sudo chsh -s $(which zsh) $(whoami)
+
+# Check if Neovim is installed, if not, install it.
+if ! which nvim > /dev/null; then
+    echo "Installing Neovim..."
+    curl -LO https://github.com/neovim/neovim/releases/latest/download/nvim.appimage
+    chmod u+x nvim.appimage
+    ./nvim.appimage --appimage-extract
+    ./squashfs-root/AppRun --version
+    # Optional: exposing nvim globally.
+    sudo mv squashfs-root /
+    sudo ln -s /squashfs-root/AppRun /usr/bin/nvim
+    # Clone the AstroNvim repository.
+    git clone --depth 1 https://github.com/AstroNvim/AstroNvim ~/.config/nvim
 fi
 
 # Create or overwrite the .zshrc file.
 cat > ~/.zshrc <<EOF
-# =====================
-# General Configuration
-# =====================
-
-# Set the default shell to Zsh (if not already set)
-[ -n "\$ZSH_VERSION" ] || exec zsh
-
 # =====================
 # Z-plug Plugin Manager
 # =====================
