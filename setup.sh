@@ -25,6 +25,8 @@ if ! which nvim > /dev/null; then
     sudo mv squashfs-root /
     sudo ln -s /squashfs-root/AppRun /usr/bin/nvim
     # Clone the NvChad repository.
+    mv ~/.config/nvim ~/.config/nvim.bak
+    rm -rf ~/.local/share/nvim
     git clone https://github.com/NvChad/NvChad ~/.config/nvim --depth 1
 fi
 
@@ -81,6 +83,7 @@ alias tree="tree -alI 'node_modules|.git'"
 alias grep='grep --color=always'
 alias grepFind='grep --exclude-dir=node_modules -nr . -e'
 alias mkdir='mkdir -p'
+alias vim='nvim'
 
 # =====================
 # Powerlevel10k Customization
